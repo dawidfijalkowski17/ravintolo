@@ -1,0 +1,15 @@
+.row{
+    display: flex;
+}
+
+.list{
+    border-right: 1px solid black;
+    width: 30%;
+    height: 100vh;
+    padding: 1rem;
+    min-width: 250px;
+}
+
+.list-details{
+    padding: 1rem;
+}

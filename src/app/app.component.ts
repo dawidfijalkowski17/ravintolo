@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import { DialogBodyComponent } from './Components/dialog-body/dialog-body.component';
+import { DialogBodyComponent } from './shared/components/dialog/dialog-body.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { DialogBodyComponent } from './Components/dialog-body/dialog-body.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'restaurantsManager';
+  title = 'Ravintolo';
 
 
   constructor(public dialog: MatDialog) {}

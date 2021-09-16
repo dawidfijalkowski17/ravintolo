@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     
     const authReq = request.clone({
       headers: request.headers
-      .set('X-API-KEY', token)
+      //.set('X-API-KEY', token)
     });
 
     return next.handle(authReq);

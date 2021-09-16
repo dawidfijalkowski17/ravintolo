@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { RecipeService } from '../Services/recipe.service';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-list-details',
@@ -12,7 +12,7 @@ export class ListDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   
+    
   }
 
 }

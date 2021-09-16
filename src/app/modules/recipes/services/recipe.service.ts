@@ -1,5 +1,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Recipe } from '../models/recipe.model';
+import { Observable } from 'rxjs';
 
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
@@ -15,8 +17,11 @@ export class RecipeService {
        this.baseUrl = baseUrl ? baseUrl : ""; 
         }
 
-
-
+        
+        getRecipesList():Observable<Recipe[]>{
+         return this.http.get<Recipe[]>(`${this.baseUrl}/recipes`);
+        }
+        
 }
 
 

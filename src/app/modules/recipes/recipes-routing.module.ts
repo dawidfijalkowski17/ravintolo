@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailMode } from 'src/app/shared/models/detailMode';
 import { IDetailStaticRouteData } from 'src/app/shared/models/iDetailStaticRouteData';
-import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { RecipeDetailsComponent } from './details/recipe-details.component';
-import { EditComponent } from './edit/edit.component';
 import { RecipesComponent } from './recipes.component';
 
 const routes: Routes = [

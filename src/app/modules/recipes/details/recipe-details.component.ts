@@ -110,6 +110,8 @@ export class RecipeDetailsComponent implements OnInit {
 
       case DetailMode.View: {
         this.recipeForm.disable();
+        this.pushEmptyIngredient();
+        this.pushEmptyIngredient();
         break;
       }
       case DetailMode.Edit: {
@@ -152,5 +154,9 @@ export class RecipeDetailsComponent implements OnInit {
       (res) => this.router.navigate(['details', this.id]),
       (err) => console.log(err)
     )
+  }
+
+  cancelEditRecipe() {
+    this.router.navigate(['details', this.id])
   }
 }

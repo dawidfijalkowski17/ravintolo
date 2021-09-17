@@ -9,6 +9,9 @@
         </div>
         <div class="headline-buttons" *ngIf="viewType == 1">
             <button class="button-save button" (click)="saveChangedRecipe()">Save</button>
+            <button class="button-cancel button" (click)="cancelEditRecipe()">Cancel</button>
+        </div>
+        <div class="headline-buttons" *ngIf="viewType == 2">
             <button class="button-cancel button">Cancel</button>
         </div>
     </div>
@@ -41,12 +44,13 @@
                             quantity of ingredient:
                             <input type="number" formControlName="quantity">
                         </label>
-                        <div *ngIf="!isLastIngredientIndex(i) && viewType == 1" class="quantity-buttons">
+                        <div *ngIf="!isLastIngredientIndex(i) && (viewType == 1 || viewType == 2)"
+                            class="quantity-buttons">
                             <button class="quantity-button-delete button"
                                 (click)="removeIngredientFromRecipe(i)">Delete</button>
-                            <button class="quantity-button-edit button">Edit</button>
                         </div>
-                        <div *ngIf="isLastIngredientIndex(i) && viewType == 1" class="quantity-buttons">
+                        <div *ngIf="isLastIngredientIndex(i) && (viewType == 1 || viewType == 2)"
+                            class="quantity-buttons">
                             <button class="quantity-button-edit button" (click)="addIngredientToRecipe()">Add</button>
                         </div>
                     </div>

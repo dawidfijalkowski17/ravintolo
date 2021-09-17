@@ -9,18 +9,22 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { API_BASE_URL } from './modules/recipes/services/recipe.service';
 import { environment } from 'src/environments/environment';
 import { AuthInterceptor } from './shared/http/auth.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DialogBodyComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [
     { provide: API_BASE_URL, useValue: environment.baseUrl },

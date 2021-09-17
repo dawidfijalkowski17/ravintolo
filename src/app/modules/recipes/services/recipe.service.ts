@@ -14,14 +14,21 @@ export class RecipeService {
   private baseUrl: string;
 
   constructor(private http: HttpClient, @Inject(API_BASE_URL) baseUrl?: string) {
-       this.baseUrl = baseUrl ? baseUrl : ""; 
-        }
+    this.baseUrl = baseUrl ? baseUrl : "";
+  }
 
-        
-        getRecipesList():Observable<Recipe[]>{
-         return this.http.get<Recipe[]>(`${this.baseUrl}/recipes`);
-        }
-        
+
+  getRecipesList(): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(`${this.baseUrl}/recipe`);
+  }
+
+  deleteRecipe(id: string) {
+    return this.http.delete(`${this.baseUrl}/recipe/${id}`);
+  }
+
+  getRecipe(id: string): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.baseUrl}/recipe/${id}`);
+  }
 }
 
 

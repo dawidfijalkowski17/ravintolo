@@ -1,0 +1,37 @@
+<div class="container">
+    <h2 class="recipe-title">Tytul</h2>
+    <form [formGroup]="recipeForm">
+        <div class="row">
+            <div class="recipe-content">
+                <label>
+                    Recipe name:
+                    <input type="text" formControlName="name">
+                </label>
+                <label>
+                    preparation time in minutes:
+                    <input type="number" formControlName="preparationTimeInMinutes">
+                </label>
+                <label>
+                    description:
+                    <input type="text" formControlName="description">
+                </label>
+            </div>
+            <div class="ingredients-content" formGroupName="ingredients">
+                <label>
+                    ingredient name:
+                    <input type="text" formControlName="name">
+                </label>
+                <label>
+                    quantity of ingredient:
+                    <input type="number" formControlName="quantity">
+                </label>
+                <label>
+                    mark:
+                    <input type="text" formControlName="mark">
+                </label>
+
+            </div>
+
+        </div>
+    </form>
+</div>

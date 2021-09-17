@@ -1,0 +1,37 @@
+ul{
+    list-style: none;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+li{
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color .5s;
+    padding: .8rem 1.4rem .8rem 1.4rem;
+
+    .recipe-name{
+        cursor: pointer;
+    }
+
+    .edit-delete-buttons{
+
+        .edit-button{
+            background-color: rgb(75, 185, 75);  
+            margin-right: .3rem;  
+        }
+        .delete-button{
+            background-color: rgb(201, 72, 72);
+        }
+    }
+
+}
+
+li:hover{
+   background-color: rgb(43, 42, 42);
+   color: white;
+}

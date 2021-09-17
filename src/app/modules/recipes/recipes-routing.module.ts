@@ -10,9 +10,9 @@ import { RecipesComponent } from './recipes.component';
 const routes: Routes = [
   {
     path: '', component: RecipesComponent, children: [
-      { path: 'details/:id', component: RecipeDetailsComponent },
-      { path: 'edit/:id', component: RecipeDetailsComponent, data: { mode: DetailMode.Edit } as IDetailStaticRouteData, },
-      { path: 'addRecipe', component: AddRecipeComponent }
+      { path: 'details/:id', component: RecipeDetailsComponent, data: { mode: DetailMode.View } as IDetailStaticRouteData },
+      { path: 'edit/:id', component: RecipeDetailsComponent, data: { mode: DetailMode.Edit } as IDetailStaticRouteData },
+      { path: 'addRecipe', component: RecipeDetailsComponent, data: { mode: DetailMode.Add } as IDetailStaticRouteData }
     ]
   },
 

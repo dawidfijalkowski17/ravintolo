@@ -1,7 +1,6 @@
 <ul>
     <li *ngFor="let recipe of recipesList">
-        <div class="recipe-name" [routerLink]="['/details', recipe._id]" (click)="setRecipeData(recipe._id)"
-            routerLinkActive="router-link-active">
+        <div class="recipe-name" [routerLink]="['/details', recipe._id]" routerLinkActive="router-link-active">
             {{ recipe.name }}
         </div>
         <div class="edit-delete-buttons">

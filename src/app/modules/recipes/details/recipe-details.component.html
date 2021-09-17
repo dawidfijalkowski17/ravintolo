@@ -1,5 +1,18 @@
 <div class="container">
-    <h2 class="recipe-title">Tytul</h2>
+    <div class="headline">
+        <div class="headline-title">
+            <h2 class="recipe-title">{{title}}</h2>
+        </div>
+        <div class="headline-buttons" *ngIf="viewType == 0">
+            <button class="button-edit button" (click)="goToEdit()">Edit</button>
+            <button class="button-delete button">Delete</button>
+        </div>
+        <div class="headline-buttons" *ngIf="viewType == 1">
+            <button class="button-save button" (click)="saveChangedRecipe()">Save</button>
+            <button class="button-cancel button">Cancel</button>
+        </div>
+    </div>
+
     <form [formGroup]="recipeForm">
         <div class="row">
             <div class="recipe-content">
@@ -16,22 +29,29 @@
                     <input type="text" formControlName="description">
                 </label>
             </div>
-            <div class="ingredients-content" formGroupName="ingredients">
-                <label>
-                    ingredient name:
-                    <input type="text" formControlName="name">
-                </label>
-                <label>
-                    quantity of ingredient:
-                    <input type="number" formControlName="quantity">
-                </label>
-                <label>
-                    mark:
-                    <input type="text" formControlName="mark">
-                </label>
-
+            <div *ngFor="let ingredient of getIngredientsFormArray()?.controls; index as i"
+                class="ingredients-list-group">
+                <div class="ingredients-content" [formGroup]="ingredient">
+                    <div class="ingredient-content">
+                        <label>
+                            ingredient name:
+                            <input type="text" formControlName="name">
+                        </label>
+                        <label>
+                            quantity of ingredient:
+                            <input type="number" formControlName="quantity">
+                        </label>
+                        <div *ngIf="!isLastIngredientIndex(i) && viewType == 1" class="quantity-buttons">
+                            <button class="quantity-button-delete button"
+                                (click)="removeIngredientFromRecipe(i)">Delete</button>
+                            <button class="quantity-button-edit button">Edit</button>
+                        </div>
+                        <div *ngIf="isLastIngredientIndex(i) && viewType == 1" class="quantity-buttons">
+                            <button class="quantity-button-edit button" (click)="addIngredientToRecipe()">Add</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </form>
 </div>

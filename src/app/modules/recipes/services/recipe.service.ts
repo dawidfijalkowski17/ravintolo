@@ -29,6 +29,10 @@ export class RecipeService {
   getRecipe(id: string): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.baseUrl}/recipe/${id}`);
   }
+
+  editRecipe(data: Recipe, id: string) {
+    return this.http.put(`${this.baseUrl}/recipe/${id}`, data)
+  }
 }
 
 

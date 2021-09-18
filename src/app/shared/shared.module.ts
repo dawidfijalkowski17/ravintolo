@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchBox } from './components/searchBox/search-box-recipe.component';
+import { SearchBox } from './components/searchBox/search-box.component';
 import { DialogBodyComponent } from './components/dialog/dialog-body.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 

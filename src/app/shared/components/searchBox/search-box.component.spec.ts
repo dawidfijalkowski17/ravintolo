@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchBox } from './search-box-recipe.component';
+import { SearchBox } from './search-box.component';
 
 describe('FilterNameRecipeComponent', () => {
   let component: SearchBox;

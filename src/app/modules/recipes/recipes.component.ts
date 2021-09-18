@@ -23,12 +23,12 @@ export class RecipesComponent implements OnInit {
         this.watchForRecipeList();
     }
 
-    watchForRecipeList() {
+    watchForRecipeList(): void {
         this.recipesList = this.recipeService.recipeList;
         this.recipeService.updateRecipesList();
     }
 
-    onFilterList(filteredItems: Recipe[]) {
+    onFilterList(filteredItems: Recipe[]): void {
         this.filteredRecipesList = filteredItems;
     }
 

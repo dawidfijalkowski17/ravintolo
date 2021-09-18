@@ -5,6 +5,7 @@ import { RecipeDetailsComponent } from './details/recipe-details.component';
 import { RecipesComponent } from './recipes.component';
 import { ListComponent } from './list/list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MinutesToHoursPipe } from 'src/app/shared/pipes/minutes-to-hours.pipe';
 
 
 
@@ -12,7 +13,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     RecipesComponent,
     RecipeDetailsComponent,
-    ListComponent
+    ListComponent,
+    MinutesToHoursPipe
   ],
   imports: [
     CommonModule,

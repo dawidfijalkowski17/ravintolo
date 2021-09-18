@@ -10,15 +10,14 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor() { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const token = 'HoA';
-    
     const authReq = request.clone({
       headers: request.headers
-      //.set('X-API-KEY', token)
+      // .set('X-API-KEY', token)
     });
 
     return next.handle(authReq);

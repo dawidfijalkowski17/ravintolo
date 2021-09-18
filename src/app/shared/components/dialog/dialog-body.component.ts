@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IDialogData } from '../../models/idialogData';
+import { IDialogData } from '../../models/i-dialog-data';
 
 @Component({
   selector: 'app-dialog-body',
@@ -20,15 +20,15 @@ export class DialogBodyComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onConfirm() {
+  onConfirm(): void {
     this.dialogRef.close(true);
   }
 
-  onDismiss() {
+  onDismiss(): void {
     this.dialogRef.close(false);
   }
 
-  close() {
+  close(): void {
     this.dialogRef.close();
   }
 }

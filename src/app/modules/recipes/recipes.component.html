@@ -5,7 +5,7 @@
 
         <div class="filter-by-name-recipe">
           <app-search-box [itemsForSearch]="recipesList | async" [searchBy]="'name'"
-            (onSearchEvent)="onFilterList($event)">
+            (searchEvent)="onFilterList($event)">
           </app-search-box>
           <button class="add-button button" [routerLink]="['/addRecipe']"
             routerLinkActive="router-link-active">Add</button>

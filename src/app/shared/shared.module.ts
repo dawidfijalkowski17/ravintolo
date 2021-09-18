@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchBox } from './components/searchBox/search-box.component';
+import { SearchBoxComponent } from './components/searchBox/search-box.component';
 import { DialogBodyComponent } from './components/dialog/dialog-body.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogHelperService } from './services/dialog-helper.service';
-import { MatCardModule } from '@angular/material/card';
+
 
 
 
 @NgModule({
   declarations: [
-    SearchBox,
+    SearchBoxComponent,
     DialogBodyComponent
   ],
   imports: [
@@ -19,7 +19,7 @@ import { MatCardModule } from '@angular/material/card';
     FormsModule
   ],
   exports: [
-    SearchBox,
+    SearchBoxComponent,
     DialogBodyComponent,
     ReactiveFormsModule,
     FormsModule

@@ -14,7 +14,7 @@ import { RecipeService } from '../services/recipe.service';
 export class ListComponent implements OnInit {
 
   @Input()
-  recipesList: Recipe[] = []
+  recipesList: Recipe[] = [];
 
   constructor(
     private recipeService: RecipeService,
@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
 
   }
 
-  deleteOneRecipe(id: string) {
+  deleteOneRecipe(id: string): void {
     this.dialogHelperService.openDialogYesNo('Warning', 'Are you sure to delete this recipe?').subscribe(
       dialogResult => {
         if (dialogResult === true) {
@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
           );
         }
       }
-    )
+    );
 
   }
 }

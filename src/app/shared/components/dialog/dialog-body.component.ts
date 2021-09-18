@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IDialogData } from '../../models/idialogData';
 
 @Component({
   selector: 'app-dialog-body',
@@ -9,9 +10,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogBodyComponent implements OnInit {
 
-  constructor( public dialogRef: MatDialogRef<DialogBodyComponent>){}
+  dialogData: IDialogData;
+  title: string;
+  message: string;
+  yesNo: boolean;
+
+  constructor(public dialogRef: MatDialogRef<DialogBodyComponent>, @Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   ngOnInit(): void {
+  }
+
+  onConfirm() {
+    this.dialogRef.close(true);
+  }
+
+  onDismiss() {
+    this.dialogRef.close(false);
   }
 
   close() {

@@ -1,8 +1,17 @@
-<div class="close-icon">
-    <i class="uil uil-times" (click)="close()"></i>
-</div>
-<div class="content">
-    <p>Dawid Fijałkowski</p>
-    <p>Zadanie rekrutacyjne</p>
-    <p>:)</p>
+<div fxLayoutGap>
+
+    <p mat-dialog-title>{{data.title}}</p>
+
+    <p display-2>{{data.message}}</p>
+
+
+    <div mat-dialog-actions>
+        <div *ngIf="data.yesNo == true">
+            <button mat-raised-button color="primary" class="button button-yes" (click)="onConfirm()">Yes</button>
+            <button mat-button class="button button-no" (click)="onDismiss()">No</button>
+        </div>
+        <div *ngIf="data.yesNo == false">
+            <button mat-raised-button color="primary" class="button button-ok" (click)="onConfirm()">Ok</button>
+        </div>
+    </div>
 </div>

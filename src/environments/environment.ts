@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://crudcrud.com/api/0b5fecb1f55d463ca397896e8de32db4'
+  baseUrl: 'https://crudcrud.com/api/d4968fc8e919476ba553f580e872b384'
 };
 
 

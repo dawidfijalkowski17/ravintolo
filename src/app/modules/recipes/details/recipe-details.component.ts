@@ -8,6 +8,7 @@ import { throwError } from 'rxjs/internal/observable/throwError';
 import { of } from 'rxjs/internal/observable/of';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
+import { DialogHelperService } from 'src/app/shared/services/dialog-helper.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -28,7 +29,8 @@ export class RecipeDetailsComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private recipeService: RecipeService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router) { }
+    private router: Router,
+    private dialogHelperService: DialogHelperService) { }
 
   getFormControls() { return this.recipeForm.controls }
   getIngredientsFormArray() { return this.getFormControls().ingredients as FormArray }
@@ -187,11 +189,18 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   removeRecipeFromList() {
-    this.recipeService.deleteRecipe(this.id).subscribe(
-      () => {
-        this.recipeService.updateRecipesList();
-        this.router.navigate(['addRecipe']);
+    this.dialogHelperService.openDialogYesNo('Warning', 'Are you sure to delete this recipe?').subscribe(
+      dialogResult => {
+        if (dialogResult === true) {
+          this.recipeService.deleteRecipe(this.id).subscribe(
+            () => {
+              this.recipeService.updateRecipesList();
+              this.router.navigate(['addRecipe']);
+            }
+          );
+        }
       }
-    );
+    )
+
   }
 }

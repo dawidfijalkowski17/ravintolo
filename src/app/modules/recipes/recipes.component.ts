@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { Recipe } from './models/recipe.model';
 import { RecipeService } from './services/recipe.service';
@@ -11,18 +12,24 @@ import { RecipeService } from './services/recipe.service';
 })
 export class RecipesComponent implements OnInit {
 
-    recipesList: Observable<Recipe[]>;
+    recipesList: BehaviorSubject<Recipe[]>;
+    filteredRecipesList: Recipe[] = [];
 
     constructor(private recipeService: RecipeService) {
 
     }
 
     ngOnInit(): void {
-        this.getRecipesList();
+        this.watchForRecipeList();
     }
 
-    getRecipesList() {
-        this.recipesList = this.recipeService.getRecipesList();
+    watchForRecipeList() {
+        this.recipesList = this.recipeService.recipeList;
+        this.recipeService.updateRecipesList();
+    }
+
+    onFilterList(filteredItems: Recipe[]) {
+        this.filteredRecipesList = filteredItems;
     }
 
 }

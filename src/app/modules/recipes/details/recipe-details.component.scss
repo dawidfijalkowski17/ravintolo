@@ -34,6 +34,11 @@
         .button-save[disabled]{
             filter: brightness(60%);
         }
+
+        .button-add{
+            background-color: seagreen;
+            margin-right: 1rem;
+        }
     }
 }
 

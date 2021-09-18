@@ -5,7 +5,7 @@
         </div>
         <div class="headline-buttons" *ngIf="viewType == 0">
             <button class="button-edit button" (click)="goToEdit()">Edit</button>
-            <button class="button-delete button">Delete</button>
+            <button class="button-delete button" (click)="removeRecipeFromList()">Delete</button>
         </div>
         <div class="headline-buttons" *ngIf="viewType == 1">
             <button class="button-save button" (click)="saveChangedRecipe()">Save</button>
@@ -13,6 +13,7 @@
         </div>
         <div class="headline-buttons" *ngIf="viewType == 2">
             <button class="button-cancel button">Cancel</button>
+            <button class="button-add button" (click)="addRecipe()">Add</button>
         </div>
     </div>
 

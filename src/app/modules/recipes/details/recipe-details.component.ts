@@ -41,7 +41,14 @@ export class RecipeDetailsComponent implements OnInit {
         mergeMap(() => this.activatedRoute.params),
         this.parseParams(),
         this.throwIfParamIsNullOrEmpty(),
-        mergeMap(id => this.recipeService.getRecipe(id))
+        mergeMap(id => {
+          if (id) {
+            return this.recipeService.getRecipe(id);
+          } else {
+            return of<Recipe>(null);;
+          }
+
+        })
       ).subscribe(
         (data) => this.patchFormValues(data),
         (err) => console.error(err),
@@ -69,7 +76,7 @@ export class RecipeDetailsComponent implements OnInit {
   })
 
   private throwIfParamIsNullOrEmpty = () => mergeMap((id: string) => {
-    if (id == null || id === '') {
+    if ((id == null || id === '') && this.viewType !== DetailMode.Add) {
       return throwError(new Error('Brak wymaganego parametru'));
     }
 
@@ -78,9 +85,9 @@ export class RecipeDetailsComponent implements OnInit {
 
   private createForm() {
     this.recipeForm = new FormGroup({
-      name: new FormControl(['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]]),
+      name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]),
       preparationTimeInMinutes: new FormControl([null, [Validators.required]]),
-      description: new FormControl(['', [Validators.required, Validators.minLength(15), Validators.maxLength(255)]]),
+      description: new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(255)]),
       ingredients: new FormArray([
 
       ])
@@ -90,17 +97,20 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   private patchFormValues(data: Recipe) {
-    this.recipeForm.patchValue({
-      name: data.name,
-      preparationTimeInMinutes: data.preparationTimeInMinutes,
-      description: data.description
-    });
-    data.ingredients.forEach(ingredient => {
-      this.getIngredientsFormArray().push(this.formBuilder.group({
-        name: [ingredient.name],
-        quantity: [ingredient.quantity]
-      }))
-    });
+    if (this.viewType === DetailMode.Edit || this.viewType === DetailMode.View) {
+      this.recipeForm.patchValue({
+        name: data.name,
+        preparationTimeInMinutes: data.preparationTimeInMinutes,
+        description: data.description
+      });
+      data.ingredients.forEach(ingredient => {
+        this.getIngredientsFormArray().push(this.formBuilder.group({
+          name: [ingredient.name],
+          quantity: [ingredient.quantity]
+        }))
+      });
+    }
+
     this.changeStateOfRecipeForm();
     this.changeDetectorRef.detectChanges();
   }
@@ -108,17 +118,21 @@ export class RecipeDetailsComponent implements OnInit {
   private changeStateOfRecipeForm() {
     switch (this.viewType) {
 
-      case DetailMode.View: {
-        this.recipeForm.disable();
+      case DetailMode.Add:
+        this.recipeForm.enable();
+        this.pushEmptyIngredient();
         this.pushEmptyIngredient();
         this.pushEmptyIngredient();
         break;
-      }
-      case DetailMode.Edit: {
+
+      case DetailMode.Edit:
         this.recipeForm.enable();
         this.pushEmptyIngredient();
         break;
-      }
+
+      case DetailMode.View:
+        this.recipeForm.disable();
+        break;
     }
   }
 
@@ -152,11 +166,32 @@ export class RecipeDetailsComponent implements OnInit {
     recipe.ingredients.pop();
     this.recipeService.editRecipe(recipe, this.id).subscribe(
       (res) => this.router.navigate(['details', this.id]),
-      (err) => console.log(err)
+      (err) => console.error(err)
     )
   }
 
   cancelEditRecipe() {
     this.router.navigate(['details', this.id])
+  }
+
+  addRecipe() {
+    const recipe: Recipe = this.recipeForm.value;
+    recipe.ingredients.pop();
+    this.recipeService.addRecipe(recipe).subscribe(
+      (res) => {
+        this.recipeService.updateRecipesList();
+        this.router.navigate(['details', res._id])
+      },
+      (err) => console.error(err),
+    )
+  }
+
+  removeRecipeFromList() {
+    this.recipeService.deleteRecipe(this.id).subscribe(
+      () => {
+        this.recipeService.updateRecipesList();
+        this.router.navigate(['addRecipe']);
+      }
+    );
   }
 }

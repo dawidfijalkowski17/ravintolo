@@ -13,9 +13,6 @@ export class ListComponent implements OnInit {
   @Input()
   recipesList: Recipe[] = []
 
-  selectedRecipe: any;
-  searchValue: string = '';
-
   constructor(private recipeService: RecipeService, private changeDetectorRef: ChangeDetectorRef) {
 
   }
@@ -25,8 +22,8 @@ export class ListComponent implements OnInit {
   }
 
   deleteOneRecipe(id: string) {
-    this.recipeService.deleteRecipe(id).subscribe((res) => {
-      window.location.reload()
-    })
+    this.recipeService.deleteRecipe(id).subscribe(
+      () => this.recipeService.updateRecipesList()
+    )
   }
 }

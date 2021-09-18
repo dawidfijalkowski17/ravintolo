@@ -4,13 +4,15 @@
       <div class="col col-sm-3 list p-0">
 
         <div class="filter-by-name-recipe">
-          <app-search-box></app-search-box>
+          <app-search-box [itemsForSearch]="recipesList | async" [searchBy]="'name'"
+            (onSearchEvent)="onFilterList($event)">
+          </app-search-box>
           <button class="add-button button" [routerLink]="['/addRecipe']"
             routerLinkActive="router-link-active">Add</button>
         </div>
 
         <div class="list-of-recipes">
-          <app-list [recipesList]="recipesList | async"></app-list>
+          <app-list [recipesList]="filteredRecipesList"></app-list>
         </div>
 
       </div>

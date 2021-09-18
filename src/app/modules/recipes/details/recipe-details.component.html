@@ -20,6 +20,7 @@
     <form [formGroup]="recipeForm">
         <div class="row">
             <div class="recipe-content">
+                <h4>Recipe information</h4>
                 <label>
                     Recipe name:
                     <input type="text" formControlName="name">
@@ -35,10 +36,12 @@
                     <input type="text" formControlName="description">
                 </label>
             </div>
+            <h4>Ingredients of the recipe</h4>
             <div *ngFor="let ingredient of getIngredientsFormArray()?.controls; index as i"
                 class="ingredients-list-group">
                 <div class="ingredients-content" [formGroup]="ingredient">
                     <div class="ingredient-content">
+
                         <label>
                             ingredient name:
                             <input type="text" formControlName="name">

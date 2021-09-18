@@ -22,7 +22,7 @@
         }
 
         .button-edit{
-            background-color: sandybrown;
+            background-color: rgb(15, 118, 179);
             margin-right: 1rem;
         }
 
@@ -40,6 +40,10 @@
             margin-right: 1rem;
         }
     }
+}
+
+.recipe-content{
+    margin-bottom: 3rem;
 }
 
 .ingredients-content{
@@ -65,5 +69,12 @@
             margin-left: 1rem;
         }
     }
+}
+
+form{
+    margin-top: 2rem;
+}
+label{
+    margin-right: 1rem;
 }
 

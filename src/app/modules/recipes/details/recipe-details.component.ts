@@ -71,11 +71,11 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
   setView(detailMode: DetailMode): void {
     this.viewType = detailMode;
     if (this.viewType === DetailMode.Edit) {
-      this.title = 'Edycja';
+      this.title = 'Edit';
     } else if (this.viewType === DetailMode.View) {
-      this.title = 'Podgląd';
+      this.title = 'Details';
     } else {
-      this.title = 'Dodaj';
+      this.title = 'Add';
     }
   }
 
@@ -175,7 +175,12 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
   }
 
   removeIngredientFromRecipe(i: number): void {
-    this.getIngredientsFormArray().removeAt(i);
+    if (this.getIngredientsFormArray().controls.length < 4) {
+      this.notificationService.info('Minimum 2 ingredients!');
+    } else {
+      this.getIngredientsFormArray().removeAt(i);
+    }
+
   }
 
   saveChangedRecipe(): void {

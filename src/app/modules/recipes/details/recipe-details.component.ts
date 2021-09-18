@@ -9,6 +9,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
 import { DialogHelperService } from 'src/app/shared/services/dialog-helper.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -30,7 +31,8 @@ export class RecipeDetailsComponent implements OnInit {
     private recipeService: RecipeService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
-    private dialogHelperService: DialogHelperService) { }
+    private dialogHelperService: DialogHelperService,
+    private notificationService: NotificationService) { }
 
   getFormControls() { return this.recipeForm.controls }
   getIngredientsFormArray() { return this.getFormControls().ingredients as FormArray }
@@ -167,8 +169,11 @@ export class RecipeDetailsComponent implements OnInit {
     const recipe: Recipe = this.recipeForm.value;
     recipe.ingredients.pop();
     this.recipeService.editRecipe(recipe, this.id).subscribe(
-      (res) => this.router.navigate(['details', this.id]),
-      (err) => console.error(err)
+      (res) => {
+        this.router.navigate(['details', this.id])
+        this.notificationService.success('Edited recipe!')
+      },
+      (err) => this.notificationService.error('Failed edit recipe!')
     )
   }
 
@@ -181,10 +186,11 @@ export class RecipeDetailsComponent implements OnInit {
     recipe.ingredients.pop();
     this.recipeService.addRecipe(recipe).subscribe(
       (res) => {
+        this.notificationService.success('Added recipe!')
         this.recipeService.updateRecipesList();
-        this.router.navigate(['details', res._id])
+        this.router.navigate(['details', res._id]);
       },
-      (err) => console.error(err),
+      (err) => this.notificationService.error('Failed adding recipe!'),
     )
   }
 
@@ -194,9 +200,11 @@ export class RecipeDetailsComponent implements OnInit {
         if (dialogResult === true) {
           this.recipeService.deleteRecipe(this.id).subscribe(
             () => {
+              this.notificationService.success('Removed recipe!');
               this.recipeService.updateRecipesList();
               this.router.navigate(['addRecipe']);
-            }
+            },
+            (err) => this.notificationService.error('Failed removing recipe')
           );
         }
       }

@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { AuthInterceptor } from './shared/http/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: API_BASE_URL, useValue: environment.baseUrl },

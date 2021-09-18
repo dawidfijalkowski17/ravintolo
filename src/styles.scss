@@ -33,3 +33,20 @@ input{
     background-color: whitesmoke;
 }
 
+.mat-simple-snackbar {
+    font-size: 1.2em;
+    color: white;
+  }
+  
+  .snackbar-error {
+    background-color: red;
+  }
+  
+  .snackbar-success {
+    background-color: green;
+  }
+  
+  .snackbar-info {
+    background-color: blue;
+  }
+

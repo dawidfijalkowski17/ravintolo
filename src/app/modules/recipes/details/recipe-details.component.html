@@ -4,64 +4,89 @@
             <h2 class="recipe-title">{{title}}</h2>
         </div>
         <div class="headline-buttons" *ngIf="viewType == 0">
-            <button class="button-edit button" (click)="goToEdit()">Edit</button>
+            <button class="button-edit button" [disabled]="recipeForm.invalid" (click)="goToEdit()">Edit</button>
             <button class="button-delete button" (click)="removeRecipeFromList()">Delete</button>
         </div>
         <div class="headline-buttons" *ngIf="viewType == 1">
-            <button class="button-save button" (click)="saveChangedRecipe()">Save</button>
+            <button class="button-save button" [disabled]="recipeForm.invalid"
+                (click)="saveChangedRecipe()">Save</button>
             <button class="button-cancel button" (click)="cancelEditRecipe()">Cancel</button>
         </div>
         <div class="headline-buttons" *ngIf="viewType == 2">
-            <button class="button-cancel button">Cancel</button>
-            <button class="button-add button" (click)="addRecipe()">Add</button>
+            <button class="button-add button" [disabled]="recipeForm.invalid" (click)="addRecipe()">Add</button>
         </div>
     </div>
+    <div class="recipe-container">
+        <form class="recipe-container" [formGroup]="recipeForm">
+            <div class="description-container">
+                <h4>Recipe information:</h4>
+                <div class="recipe-content">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Recipe name" formControlName="name">
+                        <mat-hint *ngIf="viewType!= 0" align="end">Bettwen 3 and 80 characters.</mat-hint>
+                        <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+                        <mat-error *ngIf="hasError('name', 'minlength')">You have less than 3 characters</mat-error>
+                        <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 80 characters</mat-error>
+                    </mat-form-field>
 
-    <form [formGroup]="recipeForm">
-        <div class="row">
-            <div class="recipe-content">
-                <h4>Recipe information</h4>
-                <label>
-                    Recipe name:
-                    <input type="text" formControlName="name">
-                </label>
-                <label>
-                    preparation time in minutes:
-                    <input *ngIf="viewType == 0" formControlName="preparationTimeInMinutes"
-                        [value]="recipeForm.get('preparationTimeInMinutes').value | MinutesToHoursPipe">
-                    <input *ngIf="viewType != 0" formControlName="preparationTimeInMinutes" type="number">
-                </label>
-                <label>
-                    description:
-                    <input type="text" formControlName="description">
-                </label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Preparation Time</mat-label>
+                        <input *ngIf="viewType == 0" formControlName="preparationTimeInMinutes"
+                            [value]="recipeForm.get('preparationTimeInMinutes').value | MinutesToHoursPipe" matInput
+                            placeholder="Recipe preparation time">
+                        <input *ngIf="viewType != 0" formControlName="preparationTimeInMinutes" type="number" matInput
+                            placeholder="Recipe preparation time" [min]="1">
+                        <mat-hint *ngIf="viewType!= 0" align="end">Time in minutes.</mat-hint>
+                        <mat-error *ngIf="hasError('preparationTimeInMinutes', 'required')">Preparation time is
+                            required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Recipe description..." formControlName="description"></textarea>
+                        <mat-hint *ngIf="viewType!= 0" align="end">Bettwen 15 and 255 characters.</mat-hint>
+                        <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+                        <mat-error *ngIf="hasError('description', 'minlength')">You have less than 15 characters
+                        </mat-error>
+                        <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 255 characters
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
-            <h4>Ingredients of the recipe</h4>
-            <div *ngFor="let ingredient of getIngredientsFormArray()?.controls; index as i"
-                class="ingredients-list-group">
-                <div class="ingredients-content" [formGroup]="ingredient">
-                    <div class="ingredient-content">
+            <div class="ingredients-container">
+                <h4>Ingredient information: </h4>
+                <div *ngFor="let ingredient of getIngredientsFormArray()?.controls; index as i"
+                    class="ingredients-list-group">
+                    <div class="ingredients-content" [formGroup]="ingredient">
+                        <div class="ingredient-content">
+                            <div class="ingredients-inputs">
+                                <mat-form-field class="example-full-width ingredients" appearance="fill">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Recipe name" type="text" formControlName="name">
+                                </mat-form-field>
 
-                        <label>
-                            ingredient name:
-                            <input type="text" formControlName="name">
-                        </label>
-                        <label>
-                            quantity of ingredient:
-                            <input type="number" formControlName="quantity">
-                        </label>
-                        <div *ngIf="!isLastIngredientIndex(i) && (viewType == 1 || viewType == 2)"
-                            class="quantity-buttons">
-                            <button class="quantity-button-delete button"
-                                (click)="removeIngredientFromRecipe(i)">Delete</button>
-                        </div>
-                        <div *ngIf="isLastIngredientIndex(i) && (viewType == 1 || viewType == 2)"
-                            class="quantity-buttons">
-                            <button class="quantity-button-edit button" (click)="addIngredientToRecipe()">Add</button>
+                                <mat-form-field class="example-full-width ingredients" appearance="fill">
+                                    <mat-label>Ingredient quantity</mat-label>
+                                    <input matInput placeholder="Recipe preparation time" type="number"
+                                        formControlName="quantity">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="!isLastIngredientIndex(i) && (viewType == 1 || viewType == 2)"
+                                class="quantity-buttons">
+                                <button class="quantity-button-delete button" (click)="removeIngredientFromRecipe(i)"><i
+                                        class="material-icons">remove</i></button>
+                            </div>
+                            <div *ngIf="isLastIngredientIndex(i) && (viewType == 1 || viewType == 2)"
+                                class="quantity-buttons">
+                                <button class="quantity-button-edit button" (click)="addIngredientToRecipe()"><i
+                                        class="material-icons">add</i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+
+        </form>
+    </div>
 </div>

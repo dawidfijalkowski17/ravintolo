@@ -1,16 +1,17 @@
 <div fxLayoutGap>
 
-    <p mat-dialog-title>{{data.title}}</p>
+    <p *ngIf="data.yesNo == false" mat-dialog-title class="title-info">{{data.title}}</p>
+    <p *ngIf="data.yesNo == true" mat-dialog-title class="title-warning">{{data.title}}</p>
 
-    <p display-2>{{data.message}}</p>
+    <p class="message" display-2>{{data.message}}</p>
 
 
-    <div mat-dialog-actions>
-        <div *ngIf="data.yesNo == true">
+    <div mat-dialog-actions class="button-area">
+        <div *ngIf="data.yesNo == true" class="yesNo">
             <button mat-raised-button color="primary" class="button button-yes" (click)="onConfirm()">Yes</button>
             <button mat-button class="button button-no" (click)="onDismiss()">No</button>
         </div>
-        <div *ngIf="data.yesNo == false">
+        <div *ngIf="data.yesNo == false" class="ok">
             <button mat-raised-button color="primary" class="button button-ok" (click)="onConfirm()">Ok</button>
         </div>
     </div>

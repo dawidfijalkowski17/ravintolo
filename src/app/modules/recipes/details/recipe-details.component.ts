@@ -46,6 +46,10 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
   getFormControls(): any { return this.recipeForm.controls; }
   getIngredientsFormArray(): FormArray { return this.getFormControls().ingredients as FormArray; }
 
+  public hasError = (controlName: string, errorName: string): boolean => {
+    return this.recipeForm.controls[controlName].hasError(errorName);
+  }
+
   ngOnInit(): void {
     this.createForm();
     this.activatedRoute.data
@@ -127,28 +131,26 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
     }
 
     this.changeStateOfRecipeForm();
-    this.changeDetectorRef.detectChanges();
+
   }
 
   private changeStateOfRecipeForm(): void {
     switch (this.viewType) {
-
       case DetailMode.Add:
         this.recipeForm.enable();
         this.pushEmptyIngredient();
         this.pushEmptyIngredient();
         this.pushEmptyIngredient();
         break;
-
       case DetailMode.Edit:
         this.recipeForm.enable();
         this.pushEmptyIngredient();
         break;
-
       case DetailMode.View:
         this.recipeForm.disable();
         break;
     }
+    this.changeDetectorRef.detectChanges();
   }
 
   goToEdit(): void {
@@ -185,7 +187,13 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
 
   saveChangedRecipe(): void {
     const recipe: Recipe = this.recipeForm.value;
-    recipe.ingredients.pop();
+    recipe.ingredients = recipe.ingredients.filter(el => {
+      return el.name !== '' && el.quantity !== null;
+    });
+    if (recipe.ingredients.length < 2) {
+      this.notificationService.error('Minimum two ingredients!');
+      return;
+    }
     this.recipeService.editRecipe(recipe, this.id).subscribe(
       (res) => {
         this.recipeService.updateRecipesList();
@@ -204,7 +212,13 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
 
   addRecipe(): void {
     const recipe: Recipe = this.recipeForm.value;
-    recipe.ingredients.pop();
+    recipe.ingredients = recipe.ingredients.filter(el => {
+      return el.name !== '' && el.quantity !== null;
+    });
+    if (recipe.ingredients.length < 2) {
+      this.notificationService.error('Minimum two ingredients!');
+      return;
+    }
     this.recipeService.addRecipe(recipe).subscribe(
       (res) => {
         this.notificationService.success('Added recipe!');
@@ -225,6 +239,8 @@ export class RecipeDetailsComponent implements OnInit, IDirtyComponent {
             () => {
               this.notificationService.success('Removed recipe!');
               this.recipeService.updateRecipesList();
+              this.recipeForm.reset();
+              this.recipeForm.markAsUntouched();
               this.router.navigate(['addRecipe']);
             },
             (err) => this.notificationService.error('Failed removing recipe')

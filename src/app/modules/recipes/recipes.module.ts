@@ -6,6 +6,8 @@ import { RecipesComponent } from './recipes.component';
 import { ListComponent } from './list/list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MinutesToHoursPipe } from 'src/app/shared/pipes/minutes-to-hours.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -19,7 +21,9 @@ import { MinutesToHoursPipe } from 'src/app/shared/pipes/minutes-to-hours.pipe';
   imports: [
     CommonModule,
     SharedModule,
-    RecipesRoutingModule
+    RecipesRoutingModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [
 

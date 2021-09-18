@@ -50,7 +50,7 @@ export class DirtyComponentGuard implements CanDeactivate<IDirtyComponent> {
                 history.pushState(null, null, location.href);
             });
 
-            const result = await this.dialogHelperService.openDialogYesNo('Waarning', componentIsDirtyMsg).toPromise();
+            const result = await this.dialogHelperService.openDialogYesNo('Warning', componentIsDirtyMsg).toPromise();
 
             this.lastDirtyUrl = null;
             const isClose = result;

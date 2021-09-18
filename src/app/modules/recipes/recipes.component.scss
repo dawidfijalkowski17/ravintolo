@@ -3,10 +3,10 @@
 }
 
 .list{
-    border-right: 1px solid black;
     width: 30%;
     height: 100vh;
     min-width: 250px;
+    background-color: #c9e5ff;
 }
 
 .list-details{
@@ -21,7 +21,7 @@
     padding: 0 1.4rem 0 1.4rem;
     border-bottom: 1px solid black;
 
-    app-filter-name-recipe{
+    app-search-box{
         width: 100%;
         padding: 0 1rem 0 0;
     }

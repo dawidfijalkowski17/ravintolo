@@ -12,6 +12,7 @@ import { AuthInterceptor } from './shared/http/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatInputModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

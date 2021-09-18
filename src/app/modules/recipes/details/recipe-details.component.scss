@@ -39,11 +39,16 @@
             background-color: seagreen;
             margin-right: 1rem;
         }
+
+        .button-add[disabled]{
+            filter: brightness(60%);
+        }
     }
 }
 
 .recipe-content{
     margin-bottom: 3rem;
+    max-width: 500px;
 }
 
 .ingredients-content{
@@ -61,20 +66,40 @@
 
         .quantity-button-delete{
             background-color: rgb(182, 70, 70);
-            margin-left: 1rem;
         }
 
         .quantity-button-edit{
             background-color: seagreen;
-            margin-left: 1rem;
         }
     }
 }
 
-form{
-    margin-top: 2rem;
+.example-form {
+    min-width: 300px;
+    max-width: 500px;
+    width: 100%;
 }
-label{
-    margin-right: 1rem;
+  
+.example-full-width {
+    width: 100%;
 }
 
+.ingredients-inputs{
+
+    display: flex;
+    flex-direction: row;
+
+    .ingredients{
+        margin-right: 1rem;
+    }
+}
+
+.recipe-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.description-container{
+    margin-right: 3rem;
+}

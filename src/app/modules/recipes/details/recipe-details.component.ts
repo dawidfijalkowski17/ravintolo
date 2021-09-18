@@ -4,13 +4,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DetailMode } from 'src/app/shared/models/detailMode';
 import { IDetailStaticRouteData } from 'src/app/shared/models/i-detail-static-route-data';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { of } from 'rxjs/internal/observable/of';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
 import { DialogHelperService } from 'src/app/shared/services/dialog-helper.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { IDirtyComponent } from 'src/app/shared/models/i-dirty-component';
+import { of, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-details',
